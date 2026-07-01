@@ -1,0 +1,193 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [pgvector(map: "vector")]
+}
+
+// ─── Enums ────────────────────────────────────────────────
+
+enum UserRole {
+  agent
+  admin
+}
+
+enum TicketStatus {
+  open
+  in_progress
+  pending
+  resolved
+  closed
+}
+
+enum TicketPriority {
+  low
+  medium
+  high
+  critical
+}
+
+enum TicketType {
+  bug
+  question
+  feature_request
+  incident
+  task
+}
+
+enum TicketSource {
+  email
+  web
+  api
+  internal
+}
+
+enum TicketSentiment {
+  positive
+  neutral
+  negative
+  frustrated
+}
+
+enum MessageType {
+  customer_reply
+  agent_note
+  ai_draft
+  system
+}
+
+enum AuditActorType {
+  user
+  system
+  ai
+}
+
+enum AuditEventType {
+  ticket_created
+  status_changed
+  priority_changed
+  assigned
+  unassigned
+  tag_added
+  tag_removed
+  message_sent
+  ai_summary_generated
+  ai_draft_generated
+  ai_tags_suggested
+}
+
+// ─── Models ───────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  avatarUrl String?
+  role      UserRole @default(agent)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdTickets  Ticket[]           @relation("CreatedTickets")
+  assignedTickets Ticket[]           @relation("AssignedTickets")
+  messages        TicketMessage[]
+  auditEvents     TicketAuditEvent[]
+  articles        KnowledgeArticle[]
+}
+
+model Ticket {
+  id          String         @id @default(uuid())
+  title       String
+  description String
+  status      TicketStatus   @default(open)
+  priority    TicketPriority @default(medium)
+  type        TicketType     @default(question)
+  source      TicketSource   @default(web)
+
+  createdById  String
+  assignedToId String?
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  firstResponseAt DateTime?
+  resolvedAt      DateTime?
+  dueAt           DateTime?
+
+  tags         String[]
+  category     String?
+  customFields Json?
+
+  aiSummary       String?
+  aiSentiment     TicketSentiment?
+  aiSuggestedTags String[]
+
+  createdBy  User  @relation("CreatedTickets", fields: [createdById], references: [id])
+  assignedTo User? @relation("AssignedTickets", fields: [assignedToId], references: [id])
+
+  messages    TicketMessage[]
+  auditEvents TicketAuditEvent[]
+  embedding   TicketEmbedding?
+}
+
+model TicketMessage {
+  id          String      @id @default(uuid())
+  ticketId    String
+  authorId    String?
+  body        String
+  messageType MessageType @default(customer_reply)
+  isInternal  Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  author User?  @relation(fields: [authorId], references: [id])
+}
+
+model TicketAuditEvent {
+  id            String         @id @default(uuid())
+  ticketId      String
+  actorId       String?
+  actorType     AuditActorType @default(user)
+  eventType     AuditEventType
+  previousValue String?
+  newValue      String?
+  metadata      Json?
+  createdAt     DateTime       @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  actor  User?  @relation(fields: [actorId], references: [id])
+}
+
+model TicketEmbedding {
+  id          String                       @id @default(uuid())
+  ticketId    String                       @unique
+  vector      Unsupported("vector(1536)")?
+  model       String
+  generatedAt DateTime                     @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+}
+
+model KnowledgeArticle {
+  id          String   @id @default(uuid())
+  title       String
+  body        String
+  tags        String[]
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy User                       @relation(fields: [createdById], references: [id])
+  embedding KnowledgeArticleEmbedding?
+}
+
+model KnowledgeArticleEmbedding {
+  id          String                       @id @default(uuid())
+  articleId   String                       @unique
+  vector      Unsupported("vector(1536)")?
+  model       String
+  generatedAt DateTime                     @default(now())
+
+  article KnowledgeArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+}
