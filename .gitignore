@@ -42,3 +42,5 @@ next-env.d.ts
 
 # VS Code - ignore personal settings, commit project settings
 .vscode/*
+
+/app/generated/prisma
