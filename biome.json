@@ -1,7 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
   "files": {
-    "includes": ["**", "!.next", "!node_modules", "!prisma/generated"]
+    "includes": ["**", "!.next", "!node_modules", "!prisma/generated", "!src/globals.css"]
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "linter": {
     "enabled": true,
