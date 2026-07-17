@@ -82,13 +82,16 @@ enum AuditEventType {
 // ─── Models ───────────────────────────────────────────────
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  avatarUrl String?
-  role      UserRole @default(agent)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id @default(uuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String
+  passwordHash  String?
+  avatarUrl     String?
+  image         String?
+  role          UserRole  @default(agent)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   createdTickets  Ticket[]           @relation("CreatedTickets")
   assignedTickets Ticket[]           @relation("AssignedTickets")
