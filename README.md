@@ -17,6 +17,23 @@ Built as a portfolio project to demonstrate production-quality full-stack TypeSc
 
 ---
 
+## Getting Started
+
+```bash
+npm install
+cp .env.example .env        # fill in DIRECT_URL, DATABASE_URL, AUTH_SECRET
+docker compose up -d        # Postgres (pgvector)
+npx prisma migrate dev
+npm run db:seed             # creates a fixture admin login
+npm run dev
+```
+
+Log in at [http://localhost:3000](http://localhost:3000) with the seeded fixture user: `admin@opspilot.local` / `changeme123` (dev-only, not a real credential — there's no self-serve signup).
+
+See [Developer Setup](./docs/architecture/developer-setup.md) for the full guide, including environment variables and local AI setup.
+
+---
+
 ## Documentation
 
 |                                                           |                                                      |
