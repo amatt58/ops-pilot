@@ -21,7 +21,7 @@ Built as a portfolio project to demonstrate production-quality full-stack TypeSc
 
 ```bash
 npm install
-cp .env.example .env        # fill in DIRECT_URL, DATABASE_URL, AUTH_SECRET
+cp .env.example .env        # defaults already match docker-compose.yml — just set AUTH_SECRET
 docker compose up -d        # Postgres (pgvector)
 npx prisma migrate dev
 npm run db:seed             # creates a fixture admin login
@@ -29,6 +29,8 @@ npm run dev
 ```
 
 Log in at [http://localhost:3000](http://localhost:3000) with the seeded fixture user: `admin@opspilot.local` / `changeme123` (dev-only, not a real credential — there's no self-serve signup).
+
+Local dev always runs against the Docker Postgres container, never the deployed database — Vercel Preview/Production point at Neon via their own env config, set only in the Vercel dashboard. Next session onward it's just `docker compose up -d && npm run dev` (`docker compose stop` when done; data persists in the volume).
 
 See [Developer Setup](./docs/architecture/developer-setup.md) for the full guide, including environment variables and local AI setup.
 

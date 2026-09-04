@@ -21,7 +21,8 @@ npm install
 
 # 3. Copy environment config
 cp .env.example .env
-# Edit .env — see Environment Variables below
+# Defaults already match docker-compose.yml — just set AUTH_SECRET
+# (see Environment Variables below)
 
 # 4. Start infrastructure (Postgres)
 docker compose up -d
@@ -45,6 +46,15 @@ password: changeme123
 
 This is a dev-only fixture created by `prisma/seed.ts` (`role: admin`), not a real credential — there is no self-serve signup, so this is how you get your first session locally. Re-running `npm run db:seed` is safe; it upserts on email.
 
+For subsequent sessions you only need:
+
+```bash
+docker compose up -d
+npm run dev
+```
+
+and `docker compose stop` when you're done — the container's named volume persists data between sessions, so there's no need to re-migrate or re-seed. Only `docker compose down -v` wipes it.
+
 Once the `ai/` feature lands, local AI features will additionally need Ollama running in a separate terminal:
 
 ```bash
@@ -57,19 +67,19 @@ ollama serve
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` and fill in the values. Current required variables (see `.env.example` for the authoritative, commented version):
+Copy `.env.example` to `.env`. The Postgres values already match `docker-compose.yml`, so local dev works with no edits beyond generating your own `AUTH_SECRET`:
 
 ```env
-# Database (Neon Postgres) — same two values used in Vercel for all environments
-DIRECT_URL="postgresql://USER:PASSWORD@HOST/DATABASE_NAME?sslmode=require&channel_binding=require"   # unpooled — migrations/seed
-DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler/DATABASE_NAME?sslmode=require&channel_binding=require"  # pooled — the running app
+# Database — local Docker Postgres (docker compose up -d)
+DIRECT_URL="postgresql://ops_pilot:ops_pilot_dev@localhost:5432/ops_pilot"
+DATABASE_URL="postgresql://ops_pilot:ops_pilot_dev@localhost:5432/ops_pilot"
 
 # Auth.js v5
 AUTH_SECRET="generate-with-openssl-rand-base64-32"   # openssl rand -base64 32; local-dev only, never reuse in Vercel
 # AUTH_URL is deliberately not set — Auth.js auto-detects it per request.
 ```
 
-For local dev against the Docker Postgres container instead of Neon, both `DIRECT_URL` and `DATABASE_URL` can point at `postgresql://ops_pilot:ops_pilot_dev@localhost:5432/ops_pilot`.
+**Never point local dev at Neon.** Production and Preview use a separate pair of `DIRECT_URL`/`DATABASE_URL` values (Neon's unpooled/pooled endpoints) configured directly in the Vercel dashboard — they don't belong in this file and shouldn't be pasted here even temporarily. See [ADR-006](../adr/adr-006-deployment-strategy.md) for the full environment variable map.
 
 AI provider variables (`AI_PROVIDER`, `OLLAMA_BASE_URL`, `AI_MODEL`, `EMBEDDING_MODEL` — see ADR-003) are not yet wired up in code or `.env.example`; they'll be added once the `ai/` feature is built.
 

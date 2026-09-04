@@ -25,13 +25,14 @@ npm run typecheck     # tsc --noEmit
 Database:
 ```bash
 docker compose up -d              # start Postgres (pgvector/pgvector:pg16)
+docker compose stop               # stop between sessions, data persists
 docker compose down -v            # full reset, destroys data
 npx prisma migrate dev            # create/apply a dev migration
 npx prisma studio                 # inspect data
 npm run db:seed                   # seed one fixture admin user (admin@opspilot.local) for local login testing
 ```
 
-`prisma.config.ts` points migrations at `DIRECT_URL` (unpooled), while `server/db/index.ts` connects the runtime client via `DATABASE_URL` — both must be set (Neon requires the pooled/unpooled split in production).
+`prisma.config.ts` points migrations at `DIRECT_URL` (unpooled), while `server/db/index.ts` connects the runtime client via `DATABASE_URL` — both must be set. Locally both point at the same Docker Postgres container (see `.env.example`); only Neon (Vercel Preview/Production) actually needs the pooled/unpooled split. **Local `.env` must never point at Neon** — Vercel holds those connection strings in its own env config, not in this repo.
 
 Local AI (dev only, see below): `ollama pull llama3.2 && ollama pull nomic-embed-text && ollama serve`.
 
