@@ -126,8 +126,8 @@ Deploying incrementally means infrastructure and environment problems surface wh
 ## Consequences
 
 - `DATABASE_URL` must be set as a Vercel environment variable pointing to Neon before any deployment
-- `NEXTAUTH_SECRET` must be generated (`openssl rand -base64 32`) and set in Vercel
-- `NEXTAUTH_URL` must be set to the production Vercel URL in Vercel's environment config
+- `AUTH_SECRET` must be generated (`openssl rand -base64 32`) and set in Vercel
+- `AUTH_URL` is auto-detected on Vercel and does not need to be set explicitly
 - `AI_PROVIDER=openai` and `OPENAI_API_KEY` must be set in Vercel before AI features are deployed
 - A spending cap must be configured in the OpenAI dashboard before the API key is added to Vercel
 - `package.json` build script must run `prisma migrate deploy` before `next build` to ensure schema migrations are applied on every deployment
@@ -144,5 +144,5 @@ Deploying incrementally means infrastructure and environment problems surface wh
 | `AI_PROVIDER` | `ollama` | `openai` |
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Not set |
 | `OPENAI_API_KEY` | Not set | Set in Vercel |
-| `NEXTAUTH_SECRET` | Any random string | `openssl rand -base64 32` |
-| `NEXTAUTH_URL` | `http://localhost:3000` | `https://your-project.vercel.app` |
+| `AUTH_SECRET` | Any random string | `openssl rand -base64 32` |
+| `AUTH_URL` | Not set (auto-detected) | Not set (auto-detected on Vercel) |
