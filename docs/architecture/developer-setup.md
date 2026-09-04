@@ -53,9 +53,10 @@ Copy `.env.example` to `.env.local` and fill in the values.
 # Database
 DATABASE_URL="postgresql://ops_pilot:ops_pilot_dev@localhost:5432/ops_pilot"
 
-# Auth (NextAuth)
-NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
-NEXTAUTH_URL="http://localhost:3000"
+# Auth (Auth.js v5)
+AUTH_SECRET="generate-with-openssl-rand-base64-32"
+# AUTH_URL is usually auto-detected (including on Vercel); only set it if
+# the app is served from a non-standard host/path Auth.js can't infer.
 
 # AI Provider
 AI_PROVIDER="ollama"                        # ollama | openai | anthropic
