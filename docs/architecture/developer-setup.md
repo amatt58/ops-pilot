@@ -125,6 +125,16 @@ docker compose stop
 docker compose down -v
 ```
 
+After a full reset, the container comes back up empty — bring the schema and fixture data back with:
+
+```bash
+docker compose up -d
+npx prisma migrate dev   # re-applies all migrations, regenerates the Prisma client
+npm run db:seed
+```
+
+If `npm run db:seed` fails with `Cannot find module '.prisma/client/default'`, the generated Prisma client is stale or missing — run `npx prisma generate` and re-run the seed. This can happen if a migration was created without going through `prisma migrate dev` (e.g. hand-editing a migration file), since only `migrate dev`/`migrate deploy` trigger a regenerate automatically.
+
 ---
 
 ## Git Workflow
