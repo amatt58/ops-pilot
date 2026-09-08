@@ -12,7 +12,7 @@ export default auth((req) => {
   }
 
   if (isLoggedIn && isPublicRoute) {
-    return NextResponse.redirect(new URL("/", req.nextUrl));
+    return NextResponse.redirect(new URL("/tickets", req.nextUrl));
   }
 });
 

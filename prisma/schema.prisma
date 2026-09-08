@@ -172,6 +172,11 @@ model Ticket {
   messages    TicketMessage[]
   auditEvents TicketAuditEvent[]
   embedding   TicketEmbedding?
+
+  @@index([status, priority])
+  @@index([assignedToId])
+  @@index([createdAt])
+  @@index([type])
 }
 
 model TicketMessage {
@@ -185,6 +190,8 @@ model TicketMessage {
 
   ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   author User?  @relation(fields: [authorId], references: [id])
+
+  @@index([ticketId])
 }
 
 model TicketAuditEvent {
@@ -200,6 +207,8 @@ model TicketAuditEvent {
 
   ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   actor  User?  @relation(fields: [actorId], references: [id])
+
+  @@index([ticketId])
 }
 
 model TicketEmbedding {

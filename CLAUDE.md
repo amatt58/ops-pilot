@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 OpsPilot is an AI-augmented internal operations platform (ticket triage/support) built as a portfolio project. It's a Next.js monolith — no separate backend service. See `docs/architecture/overview.md`, `docs/architecture/data-model.md`, and `docs/adr/` for full rationale; this file summarizes what's needed to work in the repo day-to-day.
 
-**Current state:** infrastructure, tooling, and the Prisma schema are in place. Auth (Auth.js v5 credentials login, session handling, route protection) is implemented — see the Auth section below. The `tickets/`, `knowledge-base/`, `ai/`, and `audit/` feature domains are not started yet, and `tests/` is still empty.
+**Current state:** infrastructure, tooling, and the Prisma schema are in place. Auth (Auth.js v5 credentials login, session handling, route protection) is implemented — see the Auth section below. The `tickets/` feature domain (list view, detail page, status/priority management, conversation thread, filtering/search — epic #5) is implemented; `knowledge-base/`, `ai/`, and `audit/` are not started yet, and `tests/` is still empty.
 
 ## Commands
 
