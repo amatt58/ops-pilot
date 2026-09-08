@@ -43,4 +43,7 @@ next-env.d.ts
 # VS Code - ignore personal settings, commit project settings
 .vscode/*
 
+# WebStorm / JetBrains IDEs - all local/machine-specific, nothing to share
+.idea/
+
 /app/generated/prisma
