@@ -1,18 +1,18 @@
 services:
   postgres:
     image: pgvector/pgvector:pg16
-    container_name: ops-pilot-postgres
+    container_name: ticket-tower-postgres
     restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ops_pilot
-      POSTGRES_PASSWORD: ops_pilot_dev
-      POSTGRES_DB: ops_pilot
+      POSTGRES_USER: ticket_tower
+      POSTGRES_PASSWORD: ticket_tower_dev
+      POSTGRES_DB: ticket_tower
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ops_pilot -d ops_pilot"]
+      test: ["CMD-SHELL", "pg_isready -U ticket_tower -d ticket_tower"]
       interval: 5s
       timeout: 5s
       retries: 5

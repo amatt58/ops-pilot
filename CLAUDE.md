@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-OpsPilot is an AI-augmented internal operations platform (ticket triage/support) built as a portfolio project. It's a Next.js monolith — no separate backend service. See `docs/architecture/overview.md`, `docs/architecture/data-model.md`, and `docs/adr/` for full rationale; this file summarizes what's needed to work in the repo day-to-day.
+TicketTower is an AI-augmented internal operations platform (ticket triage/support) built as a portfolio project. It's a Next.js monolith — no separate backend service. See `docs/architecture/overview.md`, `docs/architecture/data-model.md`, and `docs/adr/` for full rationale; this file summarizes what's needed to work in the repo day-to-day.
 
 **Current state:** infrastructure, tooling, and the Prisma schema are in place. Auth (Auth.js v5 credentials login, session handling, route protection) is implemented — see the Auth section below. The `tickets/` feature domain (list view, detail page, status/priority management, conversation thread, filtering/search — epic #5) is implemented; `knowledge-base/`, `ai/`, and `audit/` are not started yet, and `tests/` is still empty.
 
@@ -29,7 +29,7 @@ docker compose stop               # stop between sessions, data persists
 docker compose down -v            # full reset, destroys data
 npx prisma migrate dev            # create/apply a dev migration
 npx prisma studio                 # inspect data
-npm run db:seed                   # seed one fixture admin user (admin@opspilot.local) for local login testing
+npm run db:seed                   # seed one fixture admin user (admin@tickettower.local) for local login testing
 ```
 
 `prisma.config.ts` points migrations at `DIRECT_URL` (unpooled), while `server/db/index.ts` connects the runtime client via `DATABASE_URL` — both must be set. Locally both point at the same Docker Postgres container (see `.env.example`); only Neon (Vercel Preview/Production) actually needs the pooled/unpooled split. **Local `.env` must never point at Neon** — Vercel holds those connection strings in its own env config, not in this repo.

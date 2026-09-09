@@ -1,6 +1,6 @@
-# OpsPilot
+# TicketTower
 
-An AI-augmented internal operations platform for support and ops teams. Agents use OpsPilot to triage, understand, and resolve tickets faster — assisted by AI summarisation, response drafting, and semantic retrieval.
+An AI-augmented internal operations platform for support and ops teams. Agents use TicketTower to triage, understand, and resolve tickets faster — assisted by AI summarisation, response drafting, and semantic retrieval.
 
 Built as a portfolio project to demonstrate production-quality full-stack TypeScript engineering, practical AI integration, and modern operational tooling patterns.
 
@@ -28,7 +28,7 @@ npm run db:seed             # creates a fixture admin login
 npm run dev
 ```
 
-Log in at [http://localhost:3000](http://localhost:3000) with the seeded fixture user: `admin@opspilot.local` / `changeme123` (dev-only, not a real credential — there's no self-serve signup).
+Log in at [http://localhost:3000](http://localhost:3000) with the seeded fixture user: `admin@tickettower.local` / `changeme123` (dev-only, not a real credential — there's no self-serve signup).
 
 Local dev always runs against the Docker Postgres container, never the deployed database — Vercel Preview/Production point at Neon via their own env config, set only in the Vercel dashboard. Next session onward it's just `docker compose up -d && npm run dev` (`docker compose stop` when done; data persists in the volume).
 
@@ -50,4 +50,4 @@ See [Developer Setup](./docs/architecture/developer-setup.md) for the full guide
 
 ## Project status
 
-Active development — MVP in progress. See the [GitHub Project board](https://github.com/amatt58/ops-pilot/projects) for current progress.
+Active development — MVP in progress. See the [GitHub Project board](https://github.com/amatt58/ticket-tower/projects) for current progress.

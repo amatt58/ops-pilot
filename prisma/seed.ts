@@ -208,7 +208,8 @@ const SEED_TICKETS: SeedTicket[] = [
   },
   {
     title: "Question about SSO / SAML support",
-    description: "Evaluating OpsPilot for our org and need to know if SAML SSO is on the roadmap.",
+    description:
+      "Evaluating TicketTower for our org and need to know if SAML SSO is on the roadmap.",
     status: "closed",
     priority: "low",
     type: "question",
@@ -218,7 +219,7 @@ const SEED_TICKETS: SeedTicket[] = [
     assigned: true,
     messages: [
       {
-        body: "Evaluating OpsPilot for our org (about 80 seats) and need to know if SAML SSO is on the roadmap before we commit.",
+        body: "Evaluating TicketTower for our org (about 80 seats) and need to know if SAML SSO is on the roadmap before we commit.",
         messageType: "customer_reply",
       },
       {
@@ -235,9 +236,9 @@ const SEED_TICKETS: SeedTicket[] = [
 ];
 
 async function main() {
-  const adminEmail = "admin@opspilot.local";
+  const adminEmail = "admin@tickettower.local";
   const adminPassword = "changeme123"; // dev-only fixture, not a real secret
-  const agentEmail = "agent@opspilot.local";
+  const agentEmail = "agent@tickettower.local";
   const agentPassword = "changeme123"; // dev-only fixture, not a real secret
 
   const admin = await prisma.user.upsert({

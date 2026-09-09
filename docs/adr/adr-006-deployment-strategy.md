@@ -6,7 +6,7 @@
 
 ## Context
 
-OpsPilot requires a deployment strategy covering three distinct concerns:
+TicketTower requires a deployment strategy covering three distinct concerns:
 
 1. **Application hosting** — where the Next.js app runs
 2. **Database hosting** — where the production Postgres instance runs
@@ -54,7 +54,7 @@ While Postgres runs on Linux and AWS EC2 is Linux-based, self-hosting requires: 
 Neon is a managed serverless Postgres service. The connection string it provides works identically to the local Docker Postgres — only the `DATABASE_URL` environment variable changes between environments. Prisma migrations run against it without modification using `prisma migrate deploy`.
 
 **Why Neon specifically:**
-pgvector is enabled by default on Neon. This is the critical differentiator — most free managed Postgres services do not support extensions, and pgvector is a core requirement for OpsPilot's semantic search features. Manual extension compilation on a self-hosted instance would be non-trivial.
+pgvector is enabled by default on Neon. This is the critical differentiator — most free managed Postgres services do not support extensions, and pgvector is a core requirement for TicketTower's semantic search features. Manual extension compilation on a self-hosted instance would be non-trivial.
 
 **Why not alternatives:**
 
@@ -66,7 +66,7 @@ pgvector is enabled by default on Neon. This is the critical differentiator — 
 | PlanetScale | MySQL — not Postgres; no pgvector support |
 | Self-hosted on EC2 | See above; operational overhead not justified |
 
-**Cost:** Neon's free tier scales to zero when idle — there is no charge for a sleeping database. Storage for OpsPilot's demo data is well within the 0.5GB limit (a ticket record is approximately 2KB; 250,000 tickets would be required to approach the limit).
+**Cost:** Neon's free tier scales to zero when idle — there is no charge for a sleeping database. Storage for TicketTower's demo data is well within the 0.5GB limit (a ticket record is approximately 2KB; 250,000 tickets would be required to approach the limit).
 
 ---
 

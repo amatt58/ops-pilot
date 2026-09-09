@@ -6,7 +6,7 @@
 
 ## System Summary
 
-OpsPilot is a Next.js monolith with a PostgreSQL database and an AI integration layer. It follows a feature-based architecture with a clear separation between routing, business logic, and shared infrastructure.
+TicketTower is a Next.js monolith with a PostgreSQL database and an AI integration layer. It follows a feature-based architecture with a clear separation between routing, business logic, and shared infrastructure.
 
 ---
 
@@ -95,7 +95,7 @@ Agent types in search box
 See [ADR-002](../adr/adr-002-feature-based-architecture.md) for full rationale.
 
 ```
-ops-pilot/
+ticket-tower/
 ├── app/                    # Next.js routing layer only
 │   ├── (dashboard)/
 │   │   ├── tickets/
