@@ -1,6 +1,6 @@
-# OpsPilot Documentation
+# TicketTower Documentation
 
-This directory contains architecture, product, and decision documentation for the OpsPilot project. Docs are written as markdown and version-controlled alongside the codebase.
+This directory contains architecture, product, and decision documentation for the TicketTower project. Docs are written as markdown and version-controlled alongside the codebase.
 
 ---
 
@@ -12,7 +12,7 @@ This directory contains architecture, product, and decision documentation for th
 |----------|-------------|
 | [overview.md](./architecture/overview.md) | System architecture, stack, layer diagram, request flows |
 | [data-model.md](./architecture/data-model.md) | Entity definitions, field descriptions, modelling decisions |
-| [developer-setup.md](./architecture/developer-setup.md) | How to run OpsPilot locally |
+| [developer-setup.md](./architecture/developer-setup.md) | How to run TicketTower locally |
 
 ### Product
 

@@ -7,7 +7,7 @@
 
 ## Overview
 
-This document describes the core data entities in OpsPilot, their fields, relationships, and the reasoning behind key modelling decisions. It is intentionally at a conceptual level — the authoritative schema lives in `prisma/schema.prisma`.
+This document describes the core data entities in TicketTower, their fields, relationships, and the reasoning behind key modelling decisions. It is intentionally at a conceptual level — the authoritative schema lives in `prisma/schema.prisma`.
 
 The goal of this document is to answer *why* the schema is shaped the way it is, and to provide a reference when designing queries, view models, and AI context assembly.
 
@@ -35,7 +35,7 @@ User ─────────────────────────
 
 ### User
 
-Represents an agent or admin using OpsPilot. Authentication is handled externally (NextAuth); this table stores profile and role data.
+Represents an agent or admin using TicketTower. Authentication is handled externally (NextAuth); this table stores profile and role data.
 
 | Field | Type | Notes |
 |-------|------|-------|

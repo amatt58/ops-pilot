@@ -6,7 +6,7 @@
 
 ## Context
 
-OpsPilot's core value proposition is AI-augmented operations workflows — ticket summarisation, response drafting, similar ticket retrieval, knowledge base search. These features require LLM inference and embedding generation.
+TicketTower's core value proposition is AI-augmented operations workflows — ticket summarisation, response drafting, similar ticket retrieval, knowledge base search. These features require LLM inference and embedding generation.
 
 During development, calling a hosted LLM provider (OpenAI, Anthropic) for every iteration would incur API costs and require network access. In production, the choice of provider may change based on cost, capability, or privacy requirements.
 

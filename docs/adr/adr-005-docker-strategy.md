@@ -6,7 +6,7 @@
 
 ## Context
 
-OpsPilot depends on PostgreSQL (with pgvector extension) and Ollama for local AI inference. A decision was needed on how to manage these dependencies across development and any future deployment.
+TicketTower depends on PostgreSQL (with pgvector extension) and Ollama for local AI inference. A decision was needed on how to manage these dependencies across development and any future deployment.
 
 The question has two parts:
 1. Should Docker be used for local development infrastructure?
@@ -28,9 +28,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ops_pilot
-      POSTGRES_PASSWORD: ops_pilot_dev
-      POSTGRES_DB: ops_pilot
+      POSTGRES_USER: ticket_tower
+      POSTGRES_PASSWORD: ticket_tower_dev
+      POSTGRES_DB: ticket_tower
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -98,7 +98,7 @@ ollama serve                 # runs on http://localhost:11434
 
 ## Future: Application Containerisation
 
-If OpsPilot is deployed to a self-hosted environment, a Dockerfile would be added at that point:
+If TicketTower is deployed to a self-hosted environment, a Dockerfile would be added at that point:
 
 ```dockerfile
 # Dockerfile (future — not current)
