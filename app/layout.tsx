@@ -9,7 +9,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "OpsPilot",
+  title: "TicketTower",
   description: "AI-augmented operations platform",
 };
 

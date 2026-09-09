@@ -4,7 +4,7 @@
 
 ---
 
-## What OpsPilot Is
+## What TicketTower Is
 
 An AI-augmented internal operations platform for support and ops teams. Agents use it to triage, understand, and resolve tickets faster — assisted by AI summarisation, response drafting, and semantic search.
 
@@ -14,7 +14,7 @@ This is not a customer-facing product. It is the kind of internal tooling that o
 
 ## MVP Definition
 
-The MVP is the smallest version of OpsPilot that demonstrates the full value loop:
+The MVP is the smallest version of TicketTower that demonstrates the full value loop:
 
 > An agent can receive a ticket, understand it quickly with AI assistance, find relevant context, draft a response, and resolve it — with the full workflow captured in an audit trail.
 

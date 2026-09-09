@@ -6,7 +6,7 @@
 
 ## Context
 
-OpsPilot requires a frontend UI, server-side business logic, database access, and AI integration. A decision was needed on whether to build a separated frontend/backend (e.g. Next.js + separate Express/Fastify API), or a unified monolith using Next.js App Router with server actions.
+TicketTower requires a frontend UI, server-side business logic, database access, and AI integration. A decision was needed on whether to build a separated frontend/backend (e.g. Next.js + separate Express/Fastify API), or a unified monolith using Next.js App Router with server actions.
 
 This is a solo-developed MVP with a primary goal of demonstrating production-quality engineering practices. Operational overhead and iteration speed are key constraints.
 
@@ -34,7 +34,7 @@ A monolith deploys as a single unit to Vercel or a single container. No service 
 
 ### Appropriate for the scale
 
-OpsPilot is an internal tooling platform, not a high-throughput public API. The performance and separation benefits of a decoupled API are not yet warranted.
+TicketTower is an internal tooling platform, not a high-throughput public API. The performance and separation benefits of a decoupled API are not yet warranted.
 
 ---
 
@@ -42,7 +42,7 @@ OpsPilot is an internal tooling platform, not a high-throughput public API. The 
 
 - Business logic lives inside `features/` and is invoked via server actions or server components — not via REST endpoints
 - `app/api/` routes are used only for: webhooks, streaming responses (AI), and any genuinely external-facing integrations
-- If OpsPilot were to grow into a multi-client product (mobile app, third-party integrations), a public API layer would be extracted at that point
+- If TicketTower were to grow into a multi-client product (mobile app, third-party integrations), a public API layer would be extracted at that point
 - Developers joining the project need familiarity with App Router patterns (server components, server actions, the `use client` boundary)
 
 ---
