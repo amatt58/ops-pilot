@@ -13,8 +13,8 @@
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/amatt58/ops-pilot.git
-cd ops-pilot
+git clone https://github.com/amatt58/ticket-tower.git
+cd ticket-tower
 
 # 2. Install dependencies
 npm install
@@ -40,7 +40,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) and log in with the seeded fixture user:
 
 ```
-email:    admin@opspilot.local
+email:    admin@tickettower.local
 password: changeme123
 ```
 
@@ -71,8 +71,8 @@ Copy `.env.example` to `.env`. The Postgres values already match `docker-compose
 
 ```env
 # Database — local Docker Postgres (docker compose up -d)
-DIRECT_URL="postgresql://ops_pilot:ops_pilot_dev@localhost:5432/ops_pilot"
-DATABASE_URL="postgresql://ops_pilot:ops_pilot_dev@localhost:5432/ops_pilot"
+DIRECT_URL="postgresql://ticket_tower:ticket_tower_dev@localhost:5432/ticket_tower"
+DATABASE_URL="postgresql://ticket_tower:ticket_tower_dev@localhost:5432/ticket_tower"
 
 # Auth.js v5
 AUTH_SECRET="generate-with-openssl-rand-base64-32"   # openssl rand -base64 32; local-dev only, never reuse in Vercel
@@ -98,7 +98,7 @@ npm run format       # Biome format
 
 npm run typecheck    # tsc --noEmit
 
-npm run db:seed      # Seed one fixture admin user (admin@opspilot.local) for local login
+npm run db:seed      # Seed one fixture admin user (admin@tickettower.local) for local login
 ```
 
 Prisma CLI commands not wrapped in an npm script:
@@ -124,6 +124,16 @@ docker compose stop
 # Full reset (destroys all data)
 docker compose down -v
 ```
+
+After a full reset, the container comes back up empty — bring the schema and fixture data back with:
+
+```bash
+docker compose up -d
+npx prisma migrate dev   # re-applies all migrations, regenerates the Prisma client
+npm run db:seed
+```
+
+If `npm run db:seed` fails with `Cannot find module '.prisma/client/default'`, the generated Prisma client is stale or missing — run `npx prisma generate` and re-run the seed. This can happen if a migration was created without going through `prisma migrate dev` (e.g. hand-editing a migration file), since only `migrate dev`/`migrate deploy` trigger a regenerate automatically.
 
 ---
 
